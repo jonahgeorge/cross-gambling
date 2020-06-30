@@ -29,3 +29,6 @@ jobs:
 
       - name: Push image
         run: docker push registry.digitalocean.com/jonahgeorge/cross-gambling
+      
+      - name: Update terraform var
+        run: terraform apply -var="cross_gambling_image_tag=$(echo $GITHUB_SHA | head -c7)"
