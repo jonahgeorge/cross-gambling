@@ -20,9 +20,8 @@ jobs:
       - name: Configure Docker credentials
         run: doctl registry login
 
-      - name: Build and push image
-        uses: docker/build-push-action@v1
-        with:
-          repository: registry.digitalocean.com/jonahgeorge/cross-gambling
-          tag_with_ref: true
-          add_git_labels: true
+      - name: Build image
+        run: docker build -t registry.digitalocean.com/jonahgeorge/cross-gambling:$(echo $GITHUB_SHA | head -c7) .
+
+      - name: Push image
+        run: docker push registry.digitalocean.com/jonahgeorge/cross-gambling
